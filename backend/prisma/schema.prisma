@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  username    String   @unique
+  password    String?
+  googleId    String?  @unique
+  avatar      String?
+  
+  xp          Int      @default(0)
+  level       Int      @default(1)
+  streakDays  Int      @default(0)
+  lastActive  DateTime @default(now())
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  progress    UserProgress[]
+  badges      UserBadge[]
+  simulations UserSimulation[]
+  
+  @@map("users")
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  icon        String
+  unlockLevel Int      @default(1)
+  difficulty  String
+  order       Int
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  lessons     Lesson[]
+  
+  @@map("modules")
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  moduleId    String
+  title       String
+  content     Json
+  xpReward    Int      @default(10)
+  order       Int
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  progress    UserProgress[]
+  
+  @@map("lessons")
+}
+
+model UserProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  lessonId    String
+  completed   Boolean  @default(false)
+  score       Int?
+  attempts    Int      @default(0)
+  timeSpent   Int      @default(0)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, lessonId])
+  @@map("user_progress")
+}
+
+model Badge {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  icon        String
+  category    String
+  condition   Json
+  rarity      String   @default("common")
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  users       UserBadge[]
+  
+  @@map("badges")
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  userId    String
+  badgeId   String
+  earnedAt  DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, badgeId])
+  @@map("user_badges")
+}
+
+model Simulation {
+  id          String   @id @default(cuid())
+  type        String
+  name        String
+  description String
+  difficulty  String
+  data        Json
+  xpReward    Int      @default(15)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  userSims    UserSimulation[]
+  
+  @@map("simulations")
+}
+
+model UserSimulation {
+  id           String   @id @default(cuid())
+  userId       String
+  simulationId String
+  score        Int
+  completed    Boolean  @default(false)
+  timeSpent    Int      @default(0)
+  result       Json?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  simulation   Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  
+  @@map("user_simulations")
+}
