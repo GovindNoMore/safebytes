@@ -1,16 +1,16 @@
-import React from 'react'
+// frontend/src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Layout from './components/layout/Layout'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
-import './styles/globals.css'
+import Simulator from './pages/Simulator'
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/simulator" element={<Simulator />} />
       </Routes>
     </Router>
   )

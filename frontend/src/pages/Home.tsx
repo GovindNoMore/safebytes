@@ -31,26 +31,42 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#0d1117] text-white">
       {/* Navigation */}
-      <nav className="border-b border-gray-800">
+      <nav className="border-b border-gray-800/50">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
+              <img 
+                src="/icons/logo.png" 
+                alt="SafeBytes" 
+                className="w-20 h-20"
+                onError={(e) => {
+                  // Fallback to gradient shield if logo fails to load
+                  e.currentTarget.style.display = 'none';
+                  const nextEl = e.currentTarget.nextElementSibling as HTMLElement;
+                  if (nextEl) {
+                    nextEl.style.display = 'flex';
+                  }
+                }}
+              />
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-md flex items-center justify-center hidden">
+                <Shield className="w-7 h-7 text-white" />
               </div>
-              <span className="text-xl font-semibold">SafeBytes</span>
+              <span className="text-xl font-semibold tracking-tight">SafeBytes</span>
             </div>
             
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a>
-              <a href="#how-it-works" className="text-gray-400 hover:text-white transition-colors">How it works</a>
-              <a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a>
-              <Link 
-                to="/dashboard" 
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors font-medium"
-              >
-                Get started
-              </Link>
+              <a href="#features" className="text-gray-400 hover:text-white transition-colors text-sm">Features</a>
+              <a href="#how-it-works" className="text-gray-400 hover:text-white transition-colors text-sm">How it works</a>
+              <a href="#pricing" className="text-gray-400 hover:text-white transition-colors text-sm">Pricing</a>
+              <div className="flex items-center space-x-3 ml-8">
+                <button className="text-gray-400 hover:text-white transition-colors text-sm">Log in</button>
+                <Link 
+                  to="/dashboard" 
+                  className="px-3 py-1.5 bg-white text-black text-sm font-medium rounded hover:bg-gray-100 transition-colors"
+                >
+                  Get started
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -60,7 +76,7 @@ const Home: React.FC = () => {
       <section className="px-6 py-20 lg:py-32">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl">
-            <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-8">
+            <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-8 tracking-tight">
               Learn cybersecurity 
               <br />
               <span className="text-gray-400">the smart way</span>
@@ -105,10 +121,10 @@ const Home: React.FC = () => {
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="px-6 py-20 border-t border-gray-800">
+      <section id="features" className="px-6 py-20 border-t border-gray-800/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight">
               Everything you need to stay secure
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
@@ -117,7 +133,7 @@ const Home: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="p-6 rounded-xl border border-gray-800/50 hover:border-gray-700/50 transition-colors bg-gray-900/20">
               <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
                 <Target className="w-6 h-6 text-white" />
               </div>
@@ -128,7 +144,7 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="p-6 rounded-xl border border-gray-800/50 hover:border-gray-700/50 transition-colors bg-gray-900/20">
               <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
                 <Lock className="w-6 h-6 text-white" />
               </div>
@@ -139,7 +155,7 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="p-6 rounded-xl border border-gray-800/50 hover:border-gray-700/50 transition-colors bg-gray-900/20">
               <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
                 <Shield className="w-6 h-6 text-white" />
               </div>
@@ -150,7 +166,7 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="p-6 rounded-xl border border-gray-800/50 hover:border-gray-700/50 transition-colors bg-gray-900/20">
               <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mb-4">
                 <Users className="w-6 h-6 text-white" />
               </div>
@@ -161,7 +177,7 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="p-6 rounded-xl border border-gray-800/50 hover:border-gray-700/50 transition-colors bg-gray-900/20">
               <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
                 <Award className="w-6 h-6 text-white" />
               </div>
@@ -172,7 +188,7 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="p-6 rounded-xl border border-gray-800/50 hover:border-gray-700/50 transition-colors bg-gray-900/20">
               <div className="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center mb-4">
                 <Play className="w-6 h-6 text-white" />
               </div>
@@ -186,34 +202,10 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="px-6 py-20 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-blue-500 mb-2">10,000+</div>
-              <div className="text-gray-400">Learners trained</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-green-500 mb-2">50+</div>
-              <div className="text-gray-400">Interactive scenarios</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-purple-500 mb-2">95%</div>
-              <div className="text-gray-400">Completion rate</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-500 mb-2">24/7</div>
-              <div className="text-gray-400">AI assistance</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="px-6 py-20 border-t border-gray-800">
+      <section className="px-6 py-20 border-t border-gray-800/50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
             Ready to build your cyber skills?
           </h2>
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
@@ -231,18 +223,45 @@ const Home: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-12 border-t border-gray-800">
+      <footer className="px-6 py-12 border-t border-gray-800/50">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
+              <img 
+                src="/logo/favicon.ico" 
+                alt="SafeBytes" 
+                className="w-8 h-8"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const next = e.currentTarget.nextElementSibling as HTMLElement | null;
+                  if (next && next.style) {
+                    next.style.display = 'flex';
+                  }
+                }}
+              />
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-md flex items-center justify-center" style={{display: 'none'}}>
+                <Shield className="w-4 h-4 text-white" />
               </div>
-              <span className="text-xl font-semibold">SafeBytes</span>
+              <span className="text-xl font-semibold tracking-tight">SafeBytes</span>
             </div>
-            <p className="text-gray-500 text-sm">
-              © 2024 SafeBytes. Making the internet safer, one learner at a time.
-            </p>
+            <div className="flex flex-col items-center space-y-2 mt-4">
+              <img 
+                src="/icons/logo.png" 
+                alt="SafeBytes Logo" 
+                className="w-20 h-20 mb-2"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const next = e.currentTarget.nextElementSibling as HTMLElement | null;
+                  if (next && next.style) {
+                    next.style.display = 'flex';
+                  }
+                }}
+              />
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-md flex items-center justify-center" style={{display: 'none'}}>
+                <Shield className="w-10 h-10 text-white" />
+              </div>
+              <span className="text-gray-500 text-sm">© 2024 SafeBytes. Making the internet safer, one learner at a time.</span>
+            </div>
           </div>
         </div>
       </footer>

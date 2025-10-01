@@ -1,6 +1,6 @@
 // frontend/src/components/common/BotCharacter.tsx
 import React, { useState } from 'react'
-import { Bot, X, MessageCircle } from 'lucide-react'
+import { Bot, X } from 'lucide-react'
 
 interface BotCharacterProps {
   message: string
@@ -32,17 +32,17 @@ const BotCharacter: React.FC<BotCharacterProps> = ({
       {/* Speech bubble */}
       {message && showMessage && (
         <div className="mb-4 mr-2 max-w-xs">
-          <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 relative shadow-lg">
+          <div className="bg-gray-900 border border-gray-700/50 rounded-xl p-4 relative shadow-lg backdrop-blur-sm">
             {/* Close button */}
             <button 
               onClick={handleCloseMessage}
-              className="absolute -top-2 -right-2 w-5 h-5 bg-gray-600 hover:bg-gray-500 text-gray-300 rounded-full flex items-center justify-center transition-colors"
+              className="absolute -top-2 -right-2 w-5 h-5 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-full flex items-center justify-center transition-colors"
             >
               <X className="w-3 h-3" />
             </button>
             
             <div className="flex items-start space-x-3">
-              <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <Bot className="w-4 h-4 text-white" />
               </div>
               <div className="flex-1">
@@ -61,8 +61,8 @@ const BotCharacter: React.FC<BotCharacterProps> = ({
 
       {/* Bot Avatar */}
       <div 
-        className={`w-14 h-14 bg-blue-600 hover:bg-blue-500 rounded-full cursor-pointer shadow-lg transition-all duration-200 flex items-center justify-center group ${
-          !showMessage ? 'ring-2 ring-blue-500 ring-offset-2 ring-offset-gray-900' : ''
+        className={`w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 rounded-full cursor-pointer shadow-lg transition-all duration-200 flex items-center justify-center group ${
+          !showMessage ? 'ring-2 ring-blue-500/50 ring-offset-2 ring-offset-[#0d1117]' : ''
         }`}
         onClick={handleBotClick}
       >
@@ -77,7 +77,7 @@ const BotCharacter: React.FC<BotCharacterProps> = ({
       </div>
 
       {/* Online status indicator */}
-      <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 border-2 border-gray-900 rounded-full"></div>
+      <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 border-2 border-[#0d1117] rounded-full"></div>
     </div>
   )
 }
